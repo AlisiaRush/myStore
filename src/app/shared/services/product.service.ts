@@ -14,14 +14,4 @@ export class ProductService {
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.baseURL);
   }
-
-  // getProducts(): Observable<any[]> {
-  //   return this.http.get<any[]>(this.baseURL);
-  // }
-
-  // getProducts() {
-  //   fetch('https://dummyjson.com/products')
-  //     .then((res) => res.json())
-  //     .then(console.log);
-  // }
 }

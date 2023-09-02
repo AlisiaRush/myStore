@@ -4,9 +4,16 @@
     class="form-control"
     placeholder="Search Store"
     aria-label="search Store"
+    [(ngModel)]="searchValue"
     aria-describedby="button-addon2"
+    (keyup.enter)="search()"
   />
-  <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+  <button
+    (click)="search()"
+    class="btn btn-outline-secondary"
+    type="button"
+    id="button-addon2"
+  >
     <span class="material-symbols-outlined"> search </span>
   </button>
 </div>
