@@ -4,22 +4,21 @@
     <p>You searched for: {{ filterText }}</p>
   </div>
 
+  <app-pagination></app-pagination>
   <div id="product-list">
-    <div id="product-list">
-      <div class="row">
-        <div class="col-4" *ngFor="let product of filteredProducts">
-          <div class="card">
-            <div class="product-title">
-              {{ product.title }}
-            </div>
-            <div class="product-image">
-              <img src="{{ product.images[0] }}" />
-            </div>
+    <div class="row">
+      <div class="col-4" *ngFor="let product of filteredProducts">
+        <div class="card">
+          <div class="product-title">
+            {{ product.title }}
+          </div>
+          <div class="product-image">
+            <img src="{{ product.images[0] }}" />
+          </div>
 
-            <div class="product-description">
-              {{ product.description }}
-              {{ product.price }}
-            </div>
+          <div class="product-description">
+            {{ product.description }}
+            {{ product.price }}
           </div>
         </div>
       </div>

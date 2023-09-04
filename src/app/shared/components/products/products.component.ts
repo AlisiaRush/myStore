@@ -1,21 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../services/product.service';
+
 import { IProduct } from '../../../models/product.model';
-import { SearchService } from '../../search.service';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { PaginationComponent } from '../pagination/pagination.component';
+import { ProductService } from '../../services/product/product.service';
+import { SearchService } from '../../services/search/search.service';
+import { PaginationService } from '../../services/pagination/pagination.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PaginationComponent,
+  ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private paginationService: PaginationService
   ) {}
 
   products?: IProduct[] = [];
@@ -23,6 +34,8 @@ export class ProductsComponent implements OnInit {
   totalItems = 0;
   filterText = '';
   searchValue = '';
+
+  pageSize = 10; // Initialize with a default page size
 
   getProducts() {
     this.productService
@@ -59,8 +72,14 @@ export class ProductsComponent implements OnInit {
 
     // Subscribe to searchValue$ observable
     this.searchService.searchValue$.subscribe((searchValue) => {
-      this.filterText = searchValue; // Update the filter text with the search value
-      this.filterProducts(); // Apply filtering based on the new search value
+      this.filterText = searchValue;
+      this.filterProducts();
+    });
+
+    // Subscribe to pageSize$ to get the current page size
+    this.paginationService.pageSize$.subscribe((pageSize) => {
+      this.pageSize = pageSize; // Update the page size
+      this.filterProducts();
     });
   }
 }
